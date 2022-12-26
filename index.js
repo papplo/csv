@@ -1,62 +1,42 @@
 const fs = require('fs');
 const readline = require("readline");
-const stream = fs.createReadStream('./data.csv');
 
+// Init
+const stream = fs.createReadStream('./sample.csv');
 const rl = readline.createInterface( { input: stream });
 
 let data = [];
-let averageData = [];
 rl.on("line", (row) => {
     data.push(row.split(","));
 });
 
-rl.on("close", () => {
-    console.log('done');
-    reduceToAverage(data);
-    console.log(averageData)
+rl.on("close", async () => {
+    console.clear()
+    console.log(`Done! Parsed file of ${data.length} lines`);
+    const { array, data: calc, rest} = parseToAverage(data);
+
+    console.log( array, calc ,rest );
+
+
 })
 
-rl.on("line", (row) => {
-    console.log(row)
-})
 
-function averageDay(serie) {
-    if (Array.isArray(serie)) {
-        console.log(serie.length)
+ function parseToAverage(array) {
+    let data = [];
+    let res = [];
+    let index = 1;
 
-        serie.map(date_temp => {
-            if (Array.isArray(date_temp)) {
-                let averageDate;
-                let averageTemp;
+    data.push(array[0][0].split("T")[0]);
+    res.push(array[0][1]);
 
-                date_temp.reduce((prev, curr, arr) => {
-                    const [date, temp] = curr;
-                    averageDate = date.split("T")[0];
-                    prev = prev + (temp / arr.length).toPrecision(1)
-                }, 0)
-            }
-        })
+    while (array[index][0].split("T")[0] === array[index -1][0].split("T")[0]) {
+        res.push(array[index][1])
+        index++;
     }
-}
+    data.push(res);
+  
+    return { array, data, rest: index }
+    
 
-function reduceToAverage(series) {
-    let day = []
-    for (let index = 0; index < series.length; index++) {
-        if (index === 0) {
-            day.push(series[index]);
-            break;
-        };
 
-        const seriesToday = series[index];
-        const seriesYesterday = series[index -1];
-        if (seriesToday.split("T") === seriesYesterday.split("T")) {
-            day.push(seriesToday);
-            break;
-        } else {
-            const avg = averageDay(day);
-            console.log(avg)
-            averageData.push(avg);
-            day = [];
-        }
-    }
 }
