@@ -1,6 +1,6 @@
 import { argv } from 'node:process';
 import { createInterface } from "readline";
-import { createReadStream, mkdirSync, writeFileSync, readFileSync } from 'fs';
+import { createReadStream, mkdirSync, writeFileSync, existsSync } from 'fs';
 
 // Init
 if (!argv[2]) {
@@ -76,11 +76,11 @@ function write(dirPath, fileEnding, writeableData) {
             console.error('An error ocurred creating output path:', error);
         }
     });
-    
 
     // check if file exists
-    const currentFile = readFileSync(`${path}/${processedFilename}`);
-    if (currentFile) {
+    if(!existsSync(`${path}${processedFilename}`)) {
+        console.log("File not found");
+    } else {
         console.log('A file exists with name:', processedFilename);
     }
 
