@@ -12,7 +12,7 @@ let data = [];
 let rl;
 const filename = argv[2];
 try {
-    const stream = createReadStream(`./${filename}`);
+    const stream = createReadStream(`${process.cwd()}/parser/data/${filename}`);
     rl = createInterface({ input: stream });
 } catch (error) {
     throw new Error(error);
