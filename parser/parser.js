@@ -18,7 +18,7 @@ try {
     throw new Error(error);
 }
 
-rl.on("line", readLineToDataset);
+rl.on("line", (row) => readLineToDataset(row, ';'));
 
 rl.on("close", parseCallback);
 
@@ -28,20 +28,20 @@ function parseCallback() {
 
     if (data.length > 1) {
         let parsedResult = parse(data);
-        let res = write('/output/', 'parsed', serializeToCsv(parsedResult));
+        let res = write('/app/public/', 'parsed', serializeToCsv(parsedResult));
         console.log(`Writing file to ${res}`);
     } 
     process.exit()
 }
 
-function readLineToDataset(line) { 
-    data.push(line.split(','))
+function readLineToDataset(line, delimiter = ',') { 
+    data.push(line.split(delimiter))
 };
 
 function parse(dataSet) {
     const result = dataSet.reduce((prev, curr, array) => {
-        const [dateTime, temperature] = curr;
-        const [date, time] = dateTime.split("T");
+        const [date, time, temperature, accuracy] = curr;
+        // const [date, time] = dateTime.split("T");
 
         if (!prev.has(date)) {
             prev.set(date, Array.from([temperature]))
