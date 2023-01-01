@@ -6,8 +6,7 @@ export function load({ params }) {
   if (!params.slug) {
     const today = new Date(),
       month = today.getMonth(),
-      year = today.getFullYear(),
-      date = today.getDate()
+      year = today.getFullYear()
     throw redirect(307, `/timeline/${year}-${monthNames[month]}`);
   }
 }

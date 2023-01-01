@@ -1,51 +1,24 @@
 <script>
-	import { each } from 'svelte/internal';
+	import CalendarDay from '$lib/components/CalendarDay.svelte';
+  // import { each } from 'svelte/internal';
 
-
-    /** @type {import('./$types').PageData} */
-    export let data;
-
-    /**
-     * @param {number} date
-     */
-    function MyDate(date) {
-      this.date = new Date();
-      this.week = this.date.getMonth();
-
-      this.weekDays = {
-        en: new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'),
-        se: new Array('Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag', 'Söndag'),
-        es: new Array('Lunes','Martes', 'Miercoles',' Jueves', 'Viernes', 'Sabado','Domingo')
-      }
-
-    };
-    const date = new MyDate(20230101)
-
-    const month = [
-      'week 0',
-      'week 1',
-      'week 2',
-      'week 3',
-      'week 4'
-    ]
-
+  /** @type {import('./$types').PageData} */
+  export let data;
 
   </script>
   
   <header>
-    <h1>{data.post.title}</h1>
-    <h2>{@html data.post.content}
-      <pre>{data.post.d}</pre>
-    </h2>
+    <h1>{data.response.title}</h1>
+    <h2>{@html data.response.content}</h2>
   </header>
   <ul class="calendar-month">
-    {#each month as weeks, weeksIndex} 
+    {#each data.response.calendarData as weeks, weeksIndex} 
     <p>{weeksIndex}</p>
-    <ul class="calendar-week">
-      {#each date.weekDays.es as weekday, weekdayIndex}
-        <li>{weekday} {weekdayIndex}</li>
-      {/each}
-    </ul>
+      <ul class="calendar-week">
+        {#each weeks as weekday, weekdayIndex}
+          <CalendarDay day={weekday} />
+        {/each}
+      </ul>
     {/each}
   </ul>
   
@@ -94,16 +67,7 @@ header {
   padding: 0;
   display: flex;
   flex-direction: row;
-}
-
-.calendar-week li {
-  font-weight: 700;
-  flex-grow: 1;
-  list-style: none;
-  aspect-ratio: 2 / 1.5;
-
-  /* background-color: rgb(231, 229, 229); */
-  gap: 2px;
+  gap: 30px;
 }
 
 a {
