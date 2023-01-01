@@ -8,19 +8,9 @@ import dataUPV from './public/UPV-20220114-20221222A.csv';
 
 document.querySelector('#app').innerHTML = `
   <main>
-    <header>
-      <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-        <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-      </a>
-      <h1>The Semantic Layer for building data apps</h1>
-      <p class="read-the-docs">
-        Click on the Vite logo to learn more
-        Trust your insights. Consume data from any source, organize it into consistent metrics, and use it with every data app.
-      </p>
-    </header>
+
     <aside>
     <hr>
-
     </aside>
     <section class="card">
       <button id="counter" type="button"></button>
@@ -37,6 +27,17 @@ document.querySelector('#app').innerHTML = `
 
 setupCounter(document.querySelector('#counter'))
 setupResources(document.querySelector('#resource_01'), {data, dataUPV});
+
+{/* <header>
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
+  <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
+</a>
+<h1>The Semantic Layer for building data apps</h1>
+<p class="read-the-docs">
+  Click on the Vite logo to learn more
+  Trust your insights. Consume data from any source, organize it into consistent metrics, and use it with every data app.
+</p>
+</header> */}
 
 {/* <h2 id="formats">Formats</h2>
 <p>Each of these datasets is presented in one of these three formats:</p>

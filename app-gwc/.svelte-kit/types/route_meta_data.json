@@ -1,0 +1,9 @@
+{
+	"/": [
+		"src/routes/+layout.server.js"
+	],
+	"/timeline/[slug]": [
+		"src/routes/timeline/[slug]/+page.js",
+		"src/routes/+layout.server.js"
+	]
+}

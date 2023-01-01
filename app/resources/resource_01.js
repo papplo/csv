@@ -13,21 +13,24 @@ export async function setupResources(targetElement, dataset) {
       plugins: [htmlLegendPlugin],
       data: {
         datasets: [
+
           {
-            backgroundColor: '#4A895C',
-            type: 'bar',
-            borderWidth: 1,
+            // backgroundColor: '#aaa',
             radius: 0,
-            label: 'Avläst elanvändning per dag: kWh',
-            data: dataUPV.map(row => ({ x: row.date, y: parseInt(row.kWh) }))
-          },
-          {
-            backgroundColor: '#F2A93B',
-            type: 'line',
-            borderColor: '#F2A93B',
+            borderWidth: 1,
+            type: 'bar',
+            borderColor: '#ccc',
 
             label: 'Medeltemperatur dygn, 2022',
             data: data.map(row => ({ x: row.date, y: row.avgTemp }))
+          },
+          {
+            backgroundColor: '#B94D68',
+            type: 'bar',
+            // borderWidth: 1,
+            // radius: 0,
+            label: 'Avläst elanvändning per dag: kWh',
+            data: dataUPV.map(row => ({ x: row.date, y: parseInt(row.kWh) }))
           },
           {
             backgroundColor: '#808080',
